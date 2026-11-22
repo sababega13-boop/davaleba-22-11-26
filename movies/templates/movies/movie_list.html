@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Database</title>
+
+    <style>
+        body {
+            background-color: #222;
+            color: white;
+            font-family: Arial;
+            padding: 20px;
+        }
+
+        h1 {
+            color: orange;
+            text-align: center;
+        }
+
+        h2 {
+            color: orange;
+            border-bottom: 1px solid orange;
+            padding-bottom: 5px;
+        }
+
+        .box {
+            background-color: #333;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 10px;
+        }
+
+        p {
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Movie Database</h1>
+
+
+<div class="box">
+    <h2>1. Exact - ზუსტი სათაური</h2>
+
+    {% for movie in movie_exact %}
+        <p>Title: {{ movie.title }}</p>
+        <p>Genre: {{ movie.genre }}</p>
+        <p>Duration: {{ movie.duration_minutes }}</p>
+        <p>Rating: {{ movie.rating }}</p>
+    {% empty %}
+        <p>ფილმი ვერ მოიძებნა.</p>
+    {% endfor %}
+</div>
+
+
+<div class="box">
+    <h2>2. Contains - გვარის ძებნა</h2>
+
+    {% for viewer in viewers_contains_lastname %}
+        <p>{{ viewer.first_name }} {{ viewer.last_name }} - {{ viewer.email }}</p>
+    {% empty %}
+        <p>მაყურებელი ვერ მოიძებნა.</p>
+    {% endfor %}
+</div>
+
+
+<div class="box">
+    <h2>3. Startswith - ჟანრის დასაწყისი</h2>
+
+    {% for movie in genre_starts %}
+        <p>{{ movie.title }}</p>
+    {% empty %}
+        <p>ფილმი ვერ მოიძებნა.</p>
+    {% endfor %}
+</div>
+
+
+<div class="box">
+    <h2>4. Endswith - ელფოსტის დომენი</h2>
+
+    {% for viewer in email_ends %}
+        <p>{{ viewer.first_name }} {{ viewer.last_name }} - {{ viewer.email }}</p>
+    {% empty %}
+        <p>მაყურებელი ვერ მოიძებნა.</p>
+    {% endfor %}
+</div>
+
+
+<div class="box">
+    <h2>5. GT - 120 წუთზე გრძელი ფილმები</h2>
+
+    {% for movie in long_movies %}
+        <p>{{ movie.title }} - {{ movie.duration_minutes }} წუთი</p>
+    {% empty %}
+        <p>ფილმი ვერ მოიძებნა.</p>
+    {% endfor %}
+</div>
+
+
+<div class="box">
+    <h2>6. GTE - მაღალი შეფასებები</h2>
+
+    {% for review in high_score_reviews %}
+        <p>ფილმი: {{ review.movie.title }}</p>
+
+        {% if review.viewer %}
+            <p>მაყურებელი: {{ review.viewer.first_name }} {{ review.viewer.last_name }}</p>
+        {% else %}
+            <p>მაყურებელი მითითებული არ არის.</p>
+        {% endif %}
+
+        <p>ქულა: {{ review.score }}</p>
+    {% empty %}
+        <p>შეფასება ვერ მოიძებნა.</p>
+    {% endfor %}
+</div>
+
+
+<div class="box">
+    <h2>7. LT - დაბალი რეიტინგის ფილმები</h2>
+
+    {% for movie in low_rating_movies %}
+        <p>{{ movie.title }} - {{ movie.rating }}</p>
+    {% empty %}
+        <p>ფილმი ვერ მოიძებნა.</p>
+    {% endfor %}
+</div>
+
+
+<div class="box">
+    <h2>8. LTE - ახალგაზრდა მაყურებლები</h2>
+
+    {% for viewer in young_viewers %}
+        <p>{{ viewer.first_name }} - {{ viewer.age }} წლის</p>
+    {% empty %}
+        <p>მაყურებელი ვერ მოიძებნა.</p>
+    {% endfor %}
+</div>
+
+
+<div class="box">
+    <h2>9. Range - 90-150 წუთიანი ფილმები</h2>
+
+    {% for movie in medium_length_movies %}
+        <p>{{ movie.title }} - {{ movie.duration_minutes }} წუთი</p>
+    {% empty %}
+        <p>ფილმი ვერ მოიძებნა.</p>
+    {% endfor %}
+</div>
+
+
+<div class="box">
+    <h2>10. IN - მითითებული ID-ების ფილმები</h2>
+
+    {% for movie in movies_in_list %}
+        <p>{{ movie.title }}</p>
+    {% empty %}
+        <p>ფილმი ვერ მოიძებნა.</p>
+    {% endfor %}
+</div>
+
+
+<div class="box">
+    <h2>11. Isnull - მაყურებლის გარეშე შეფასებები</h2>
+
+    {% for review in reviews_without_viewer %}
+        <p>ფილმი: {{ review.movie.title }}</p>
+        <p>ქულა: {{ review.score }}</p>
+    {% empty %}
+        <p>ასეთი შეფასება ვერ მოიძებნა.</p>
+    {% endfor %}
+</div>
+
+
+</body>
+</html>
